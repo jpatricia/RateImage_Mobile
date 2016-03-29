@@ -2,6 +2,7 @@ package com.example.fotagmobile;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,7 +22,6 @@ public class ImageCollectionView extends LinearLayout implements Observer {
         Log.d("fotagmobile", "View Constructor");
         model = model_;
         model.addObserver(this);
-
         this.setOrientation(LinearLayout.VERTICAL);
 
     }
@@ -38,7 +38,7 @@ public class ImageCollectionView extends LinearLayout implements Observer {
         imageView1.setLayoutParams(new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
-        imageView1.setPadding(0,10,0,50);
+        imageView1.setPadding(0, 10, 0, 50);
         this.addView(imageView1);
 
         ImageView imageView2 = new ImageView(context);
@@ -77,7 +77,7 @@ public class ImageCollectionView extends LinearLayout implements Observer {
         imageView4.setLayoutParams(new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
-        imageView4.setPadding(0,10,0,50);
+        imageView4.setPadding(0, 10, 0, 50);
         this.addView(imageView4);
 
         ImageView imageView5 = new ImageView(context);
@@ -90,7 +90,7 @@ public class ImageCollectionView extends LinearLayout implements Observer {
         imageView5.setLayoutParams(new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
-        imageView5.setPadding(0,10,0,50);
+        imageView5.setPadding(0, 10, 0, 50);
         this.addView(imageView5);
 
         ImageView imageView6 = new ImageView(context);
@@ -103,7 +103,7 @@ public class ImageCollectionView extends LinearLayout implements Observer {
         imageView6.setLayoutParams(new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
-        imageView6.setPadding(0,10,0,50);
+        imageView6.setPadding(0, 10, 0, 50);
         this.addView(imageView6);
 
         ImageView imageView7 = new ImageView(context);
@@ -116,7 +116,7 @@ public class ImageCollectionView extends LinearLayout implements Observer {
         imageView7.setLayoutParams(new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
-        imageView7.setPadding(0,10,0,50);
+        imageView7.setPadding(0, 10, 0, 50);
         this.addView(imageView7);
 
         ImageView imageView8 = new ImageView(context);
@@ -129,7 +129,7 @@ public class ImageCollectionView extends LinearLayout implements Observer {
         imageView8.setLayoutParams(new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
-        imageView8.setPadding(0,10,0,50);
+        imageView8.setPadding(0, 10, 0, 50);
         this.addView(imageView8);
 
         ImageView imageView9 = new ImageView(context);
@@ -142,7 +142,7 @@ public class ImageCollectionView extends LinearLayout implements Observer {
         imageView9.setLayoutParams(new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
-        imageView9.setPadding(0,10,0,50);
+        imageView9.setPadding(0, 10, 0, 50);
         this.addView(imageView9);
 
         ImageView imageView10 = new ImageView(context);
@@ -155,14 +155,23 @@ public class ImageCollectionView extends LinearLayout implements Observer {
         imageView10.setLayoutParams(new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
-        imageView10.setPadding(0,10,0,50);
+        imageView10.setPadding(0, 10, 0, 50);
         this.addView(imageView10);
+
+        imageView1.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     public void update(Observable observable, Object data) {
         Log.d("fotagmobile", "update View");
-        if(model.type == "load"){
+        if(model.type.equals("load")){
             loadImages();
+        }else if(model.type.equals("clear")){
+            this.removeAllViews();
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.fotagmobile;
 
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -27,6 +28,8 @@ public class Model extends Observable{
 
     public void clearImage(){
         type="clear";
+        setChanged();
+        notifyObservers();
     }
 
     // Observer methods
