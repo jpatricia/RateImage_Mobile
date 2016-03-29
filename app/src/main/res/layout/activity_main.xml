@@ -20,22 +20,22 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" >
             <ImageButton
                 android:id="@+id/clear_button"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/clear_icon"
                 android:background="?attr/colorPrimary"
                 />
             <ImageButton
                 android:id="@+id/load_button"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/load_icon"
                 android:background="?attr/colorPrimary"
                 />
             <ImageButton
                 android:id="@+id/search_button"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/search_icon"
                 android:background="?attr/colorPrimary"
                 />
