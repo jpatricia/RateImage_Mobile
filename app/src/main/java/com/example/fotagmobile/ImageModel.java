@@ -1,9 +1,17 @@
 package com.example.fotagmobile;
 
 public class ImageModel {
-    public int rating;
+    private int imgRating;
 
-    ImageModel(){
-        rating=0; //default
+    ImageModel(int prevRating){
+        if(prevRating == 0){
+            imgRating=0;
+        }else{
+            imgRating = prevRating;
+        }
+    }
+
+    public void setRating(int r){
+        imgRating = r;
     }
 }

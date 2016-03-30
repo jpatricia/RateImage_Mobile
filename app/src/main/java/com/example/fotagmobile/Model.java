@@ -1,5 +1,6 @@
 package com.example.fotagmobile;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.LinearLayout;
 

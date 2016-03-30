@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         ImageCollectionView content = new ImageCollectionView(this,model);
         ViewGroup v = (ViewGroup) findViewById(R.id.mainactivity_1);
 //        ScrollView v = (ScrollView) findViewById(R.id.view);
+
+        v.addView(toolbarView);
         v.addView(content);
 
         // initialize views
