@@ -36,7 +36,7 @@ public class ToolbarView extends LinearLayout implements Observer {
             @Override
             public void onClick(View v) {
                 Log.d("fotagmobile", "toolbar star 1 clicked");
-                s.StarList.get(1).setI
+                
             }
         });
 
