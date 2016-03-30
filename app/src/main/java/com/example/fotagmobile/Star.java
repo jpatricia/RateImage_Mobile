@@ -109,7 +109,7 @@ public class Star extends LinearLayout{
         return this;
     }
 
-    public void setRating(int rate){
+    public void setRatingStar(int rate){
         Log.d("fotagmobile", "setRating: " + rate);
         if(filled[rate]){
             //rating is changed from full to empty

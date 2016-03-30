@@ -101,7 +101,6 @@ public class ToolbarView extends LinearLayout implements Observer {
             @Override
             public void onClick(View v) {
                 Log.d("fotagmobile", "load button clicked");
-
                 model.loadImage();
             }
         });
@@ -131,8 +130,9 @@ public class ToolbarView extends LinearLayout implements Observer {
                 Log.d("fotagmobile", "toolbar star 1 clicked");
                 ratingToolbar.removeAllViews();
                 toolbar.removeView(ratingToolbar);
-                ratingToolbar.setRating(1);
+                ratingToolbar.setRatingStar(1);
                 model.type = "filter";
+                model.filterRating = 1;
                 model.updateStar();
             }
         });
@@ -143,8 +143,9 @@ public class ToolbarView extends LinearLayout implements Observer {
                 Log.d("fotagmobile","toolbar star 2 clicked");
                 ratingToolbar.removeAllViews();
                 toolbar.removeView(ratingToolbar);
-                ratingToolbar.setRating(2);
+                ratingToolbar.setRatingStar(2);
                 model.type = "filter";
+                model.filterRating = 2;
                 model.updateStar();
             }
         });
@@ -155,8 +156,9 @@ public class ToolbarView extends LinearLayout implements Observer {
                 Log.d("fotagmobile","toolbar star 3 clicked");
                 ratingToolbar.removeAllViews();
                 toolbar.removeView(ratingToolbar);
-                ratingToolbar.setRating(3);
+                ratingToolbar.setRatingStar(3);
                 model.type = "filter";
+                model.filterRating = 3;
                 model.updateStar();
             }
         });
@@ -167,8 +169,9 @@ public class ToolbarView extends LinearLayout implements Observer {
                 Log.d("fotagmobile","toolbar star 4 clicked");
                 ratingToolbar.removeAllViews();
                 toolbar.removeView(ratingToolbar);
-                ratingToolbar.setRating(4);
+                ratingToolbar.setRatingStar(4);
                 model.type = "filter";
+                model.filterRating = 4;
                 model.updateStar();
             }
         });
@@ -179,8 +182,9 @@ public class ToolbarView extends LinearLayout implements Observer {
                 Log.d("fotagmobile","toolbar star 5 clicked");
                 ratingToolbar.removeAllViews();
                 toolbar.removeView(ratingToolbar);
-                ratingToolbar.setRating(5);
+                ratingToolbar.setRatingStar(5);
                 model.type = "filter";
+                model.filterRating = 5;
                 model.updateStar();
             }
         });
@@ -193,6 +197,7 @@ public class ToolbarView extends LinearLayout implements Observer {
                 toolbar.removeView(ratingToolbar);
                 ratingToolbar.clearRating();
                 model.type = "filter";
+                model.filterRating = 0;
                 model.updateStar();
             }
         });

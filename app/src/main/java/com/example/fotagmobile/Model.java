@@ -1,9 +1,11 @@
 package com.example.fotagmobile;
 
 import android.content.Context;
+import android.media.Image;
 import android.util.Log;
 import android.widget.LinearLayout;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -12,10 +14,22 @@ public class Model extends Observable{
     public String type;
     public boolean FirstLoad;
     public ArrayList<ImageModel> ImageList;
+    public ArrayList<ImageModel> SecondList;
+    public ArrayList<Integer> listRating;
+    public int filterRating;
 
     Model(){
         type= "";
         FirstLoad = true;
+        filterRating = 0;
+        ImageList = new ArrayList<ImageModel>();
+        SecondList = new ArrayList<ImageModel>();
+    }
+
+    public void addImage(int r, int id){
+        ImageModel m = new ImageModel(r,id);
+        ImageList.add(m);
+        SecondList.add(m);
     }
 
     public void loadImage(){

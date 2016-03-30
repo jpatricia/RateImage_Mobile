@@ -25,28 +25,7 @@ public class ImageCollectionView extends LinearLayout implements Observer {
         Log.d("fotagmobile", "View Constructor");
         model = model_;
 
-        box = new ArrayList<ImageBox>();
-        ImageBox b1 = new ImageBox(model,context,R.drawable.img1);
-        ImageBox b2 = new ImageBox(model,context,R.drawable.img2);
-        ImageBox b3 = new ImageBox(model,context,R.drawable.img3);
-        ImageBox b4 = new ImageBox(model,context,R.drawable.img4);
-        ImageBox b5 = new ImageBox(model,context,R.drawable.img5);
-        ImageBox b6 = new ImageBox(model,context,R.drawable.img6);
-        ImageBox b7 = new ImageBox(model,context,R.drawable.img7);
-        ImageBox b8 = new ImageBox(model,context,R.drawable.img8);
-        ImageBox b9 = new ImageBox(model,context,R.drawable.img9);
-        ImageBox b10 = new ImageBox(model,context,R.drawable.img10);
-
-        box.add(b1);
-        box.add(b2);
-        box.add(b3);
-        box.add(b4);
-        box.add(b5);
-        box.add(b6);
-        box.add(b7);
-        box.add(b8);
-        box.add(b9);
-        box.add(b10);
+        createBoxes();
 //        loadList = new ArrayList<Integer>();
 //        loadList.add(R.drawable.img1);
 //        loadList.add(R.drawable.img2);
@@ -63,8 +42,36 @@ public class ImageCollectionView extends LinearLayout implements Observer {
 
     }
 
+    public void createBoxes(){
+        box = new ArrayList<ImageBox>();
+        ImageBox b1 = new ImageBox(context,R.drawable.img1);
+        ImageBox b2 = new ImageBox(context,R.drawable.img2);
+        ImageBox b3 = new ImageBox(context,R.drawable.img3);
+        ImageBox b4 = new ImageBox(context,R.drawable.img4);
+        ImageBox b5 = new ImageBox(context,R.drawable.img5);
+        ImageBox b6 = new ImageBox(context,R.drawable.img6);
+        ImageBox b7 = new ImageBox(context,R.drawable.img7);
+        ImageBox b8 = new ImageBox(context,R.drawable.img8);
+        ImageBox b9 = new ImageBox(context,R.drawable.img9);
+        ImageBox b10 = new ImageBox(context,R.drawable.img10);
+
+        box.add(b1);
+        box.add(b2);
+        box.add(b3);
+        box.add(b4);
+        box.add(b5);
+        box.add(b6);
+        box.add(b7);
+        box.add(b8);
+        box.add(b9);
+        box.add(b10);
+    }
+
     public void loadImages(){
+        Log.d("fotagmobile","box size: "+box.size());
+        if(box.size()==0) createBoxes();
         for(int i=0;i<box.size();i++){
+            model.addImage(box.get(i).getRating(),box.get(i).getID());
             this.addView(box.get(i));
         }
         //create ImageView
@@ -87,148 +94,64 @@ public class ImageCollectionView extends LinearLayout implements Observer {
 
  //       }
 
+    }
 
-//
-//        ImageView imageView1 = new ImageView(context);
-//        imageView1.setImageResource(R.drawable.img1);
-//        imageView1.setMaxHeight(500);
-//        imageView1.setMinimumHeight(300);
-//        imageView1.setMaxWidth(700);
-//        imageView1.setMinimumWidth(400);
-//        imageView1.setAdjustViewBounds(true);
-//        imageView1.setLayoutParams(new LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT));
-//        imageView1.setPadding(0, 10, 0, 50);
-//        this.addView(imageView1);
-//
-//        ImageView imageView2 = new ImageView(context);
-//        imageView2.setImageResource(R.drawable.img2);
-//        imageView2.setMaxHeight(500);
-//        imageView2.setMinimumHeight(300);
-//        imageView2.setMaxWidth(700);
-//        imageView2.setMinimumWidth(400);
-//        imageView2.setAdjustViewBounds(true);
-//        imageView2.setLayoutParams(new LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT));
-//        imageView2.setPadding(0, 10, 0, 50);
-//        this.addView(imageView2);
-//
-//        ImageView imageView3 = new ImageView(context);
-//        imageView3.setImageResource(R.drawable.img3);
-//        imageView3.setMaxHeight(500);
-//        imageView3.setMinimumHeight(300);
-//        imageView3.setMaxWidth(700);
-//        imageView3.setMinimumWidth(400);
-//        imageView3.setAdjustViewBounds(true);
-//        imageView3.setLayoutParams(new LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT));
-//        imageView3.setPadding(0, 10, 0, 50);
-//        this.addView(imageView3);
-//
-//        ImageView imageView4 = new ImageView(context);
-//        imageView4.setImageResource(R.drawable.img4);
-//        imageView4.setMaxHeight(500);
-//        imageView4.setMinimumHeight(300);
-//        imageView4.setMaxWidth(700);
-//        imageView4.setMinimumWidth(400);
-//        imageView4.setAdjustViewBounds(true);
-//        imageView4.setLayoutParams(new LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT));
-//        imageView4.setPadding(0, 10, 0, 50);
-//        this.addView(imageView4);
-//
-//        ImageView imageView5 = new ImageView(context);
-//        imageView5.setImageResource(R.drawable.img5);
-//        imageView5.setMaxHeight(500);
-//        imageView5.setMinimumHeight(300);
-//        imageView5.setMaxWidth(700);
-//        imageView5.setMinimumWidth(400);
-//        imageView5.setAdjustViewBounds(true);
-//        imageView5.setLayoutParams(new LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT));
-//        imageView5.setPadding(0, 10, 0, 50);
-//        this.addView(imageView5);
-//
-//        ImageView imageView6 = new ImageView(context);
-//        imageView6.setImageResource(R.drawable.img6);
-//        imageView6.setMaxHeight(500);
-//        imageView6.setMinimumHeight(300);
-//        imageView6.setMaxWidth(700);
-//        imageView6.setMinimumWidth(400);
-//        imageView6.setAdjustViewBounds(true);
-//        imageView6.setLayoutParams(new LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT));
-//        imageView6.setPadding(0, 10, 0, 50);
-//        this.addView(imageView6);
-//
-//        ImageView imageView7 = new ImageView(context);
-//        imageView7.setImageResource(R.drawable.img7);
-//        imageView7.setMaxHeight(500);
-//        imageView7.setMinimumHeight(300);
-//        imageView7.setMaxWidth(700);
-//        imageView7.setMinimumWidth(400);
-//        imageView7.setAdjustViewBounds(true);
-//        imageView7.setLayoutParams(new LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT));
-//        imageView7.setPadding(0, 10, 0, 50);
-//        this.addView(imageView7);
-//
-//        ImageView imageView8 = new ImageView(context);
-//        imageView8.setImageResource(R.drawable.img8);
-//        imageView8.setMaxHeight(500);
-//        imageView8.setMinimumHeight(300);
-//        imageView8.setMaxWidth(700);
-//        imageView8.setMinimumWidth(400);
-//        imageView8.setAdjustViewBounds(true);
-//        imageView8.setLayoutParams(new LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT));
-//        imageView8.setPadding(0, 10, 0, 50);
-//        this.addView(imageView8);
-//
-//        ImageView imageView9 = new ImageView(context);
-//        imageView9.setImageResource(R.drawable.img9);
-//        imageView9.setMaxHeight(500);
-//        imageView9.setMinimumHeight(300);
-//        imageView9.setMaxWidth(700);
-//        imageView9.setMinimumWidth(400);
-//        imageView9.setAdjustViewBounds(true);
-//        imageView9.setLayoutParams(new LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT));
-//        imageView9.setPadding(0, 10, 0, 50);
-//        this.addView(imageView9);
-//
-//        ImageView imageView10 = new ImageView(context);
-//        imageView10.setImageResource(R.drawable.img10);
-//        imageView10.setMaxHeight(500);
-//        imageView10.setMinimumHeight(300);
-//        imageView10.setMaxWidth(700);
-//        imageView10.setMinimumWidth(400);
-//        imageView10.setAdjustViewBounds(true);
-//        imageView10.setLayoutParams(new LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT));
-//        imageView10.setPadding(0, 10, 0, 50);
-//        this.addView(imageView10);
+    public void filterImages(int ratingFilter){
+        Log.d("fotagmobile","in filterImages method");
+        this.removeAllViews();
+        ArrayList<ImageModel> list = new ArrayList<ImageModel>();
+        for(int i=0;i<model.ImageList.size();i++){
+            list.add(model.ImageList.get(i));
+        }
+        Log.d("fotagmobile","num images before filter: "+list.size());
+        Log.d("fotagmobile","filter to: "+ratingFilter);
+        if(ratingFilter!=0){
+            for(int i=list.size()-1;i>=0;i--){
+                int imgrating = list.get(i).getImgRating();
+                if(imgrating < ratingFilter){
+                    list.remove(i);
+                }
+            }
+        }
+        Log.d("fotagmobile","after filter,list size: "+list.size());
+        model.SecondList.clear();
+        for(int i=0;i<list.size();i++){
+            model.SecondList.add(list.get(i));
+        }
+        reDraw();
+    }
 
+    public void reDraw(){
+        int size = model.SecondList.size();
+        if(size!=0){
+            for(int j=0;j<box.size();j++){
+                for(int i=0;i<model.SecondList.size();i++){
+                    if(model.SecondList.get(i).imgID == box.get(j).getID()){
+                        this.addView(box.get(j));
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public void update(Observable observable, Object data) {
         Log.d("fotagmobile", "update View");
         if(model.type.equals("load")){
-            Log.d("fotagmobile","load images update");
+            Log.d("fotagmobile", "load images update");
             loadImages();
         }else if(model.type.equals("clear")){
             this.removeAllViews();
             model.FirstLoad = true;
+        }else if(model.type.equals("filter")){
+            for(int i=0;i<box.size();i++){
+                if(box.get(i).getID() == model.ImageList.get(i).imgID) {
+                    Log.d("fotagmobile","box ID: "+box.get(i).getID()+" rating: " + box.get(i).getRating());
+                    model.ImageList.get(i).setRating(box.get(i).getRating());
+                    Log.d("fotagmobile", "image ID: " + model.ImageList.get(i).imgID + " rating: " + model.ImageList.get(i).getImgRating());
+                }
+            }
+            filterImages(model.filterRating);
         }
     }
 }

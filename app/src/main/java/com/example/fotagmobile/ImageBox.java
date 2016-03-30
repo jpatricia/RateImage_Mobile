@@ -14,19 +14,19 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class ImageBox extends LinearLayout implements Observer {
-    private Model model;
+    //private Model model;
     private Context context;
     private ImageModel im;
     private Star rating;
     private int id;
 
-    public ImageBox(Model model_,Context context_,int id_){
+    public ImageBox(Context context_,int id_){
         super(context_);
         context = context_;
-        model = model_;
+        //model = model_;
         rating = new Star(context);
-        im = new ImageModel(0);
         id = id_;
+        im = new ImageModel(0,id);
 
         this.setOrientation(VERTICAL);
         ImageView iv = new ImageView(context);
@@ -51,6 +51,14 @@ public class ImageBox extends LinearLayout implements Observer {
 
     }
 
+    public int getID(){
+        return id;
+    }
+
+    public int getRating(){
+        return im.getImgRating();
+    }
+
     public void addStarListener(){
         rating.StarList.get(1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +66,7 @@ public class ImageBox extends LinearLayout implements Observer {
                 Log.d("fotagmobile", "image star 1 clicked");
                 rating.removeAllViews();
                 im.setRating(1);
-                rating.setRating(1);
+                rating.setRatingStar(1);
                 im.updateStar();
             }
         });
@@ -68,7 +76,7 @@ public class ImageBox extends LinearLayout implements Observer {
                 Log.d("fotagmobile", "image star 2 clicked");
                 rating.removeAllViews();
                 im.setRating(2);
-                rating.setRating(2);
+                rating.setRatingStar(2);
                 im.updateStar();
             }
         });
@@ -78,7 +86,7 @@ public class ImageBox extends LinearLayout implements Observer {
                 Log.d("fotagmobile", "image star 3 clicked");
                 rating.removeAllViews();
                 im.setRating(3);
-                rating.setRating(3);
+                rating.setRatingStar(3);
                 im.updateStar();
             }
         });
@@ -88,7 +96,7 @@ public class ImageBox extends LinearLayout implements Observer {
                 Log.d("fotagmobile", "image star 4 clicked");
                 rating.removeAllViews();
                 im.setRating(4);
-                rating.setRating(4);
+                rating.setRatingStar(4);
                 im.updateStar();
             }
         });
@@ -98,7 +106,7 @@ public class ImageBox extends LinearLayout implements Observer {
                 Log.d("fotagmobile", "image star 5 clicked");
                 rating.removeAllViews();
                 im.setRating(5);
-                rating.setRating(5);
+                rating.setRatingStar(5);
                 im.updateStar();
             }
         });
