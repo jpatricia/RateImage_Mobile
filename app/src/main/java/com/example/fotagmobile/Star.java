@@ -68,10 +68,10 @@ public class Star extends LinearLayout{
     public void addClearButton(){
         clearStar = new ImageButton(context);
         clearStar.setBackgroundResource(R.drawable.close_icon);
-        clearStar.setMinimumWidth(10);
-        clearStar.setMinimumHeight(10);
-        clearStar.setMaxHeight(20);
-        clearStar.setMaxWidth(30);
+        clearStar.setMinimumWidth(30);
+        clearStar.setMinimumHeight(30);
+        clearStar.setMaxHeight(40);
+        clearStar.setMaxWidth(40);
         clearStar.setAdjustViewBounds(true);
         clearStar.setLayoutParams(new LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -122,5 +122,12 @@ public class Star extends LinearLayout{
             }
         }
         //drawStar();
+    }
+
+    public void clearRating(){
+        Log.d("fotagmobile", "clearRating");
+        for(int i=1;i<6;i++){
+            filled[i] = false;
+        }
     }
 }

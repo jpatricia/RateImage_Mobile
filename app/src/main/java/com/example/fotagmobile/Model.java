@@ -11,6 +11,7 @@ import java.util.Observer;
 public class Model extends Observable{
     public String type;
     public ArrayList<ImageModel> ImageList;
+
     Model(){
         type= "";
     }

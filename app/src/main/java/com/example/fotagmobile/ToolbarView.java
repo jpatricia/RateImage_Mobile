@@ -183,6 +183,18 @@ public class ToolbarView extends LinearLayout implements Observer {
                 model.updateStar();
             }
         });
+
+        ratingToolbar.clearStar.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("fotagmobile","toolbar clearRating clicked");
+                ratingToolbar.removeAllViews();
+                toolbar.removeView(ratingToolbar);
+                ratingToolbar.clearRating();
+                model.type = "filter";
+                model.updateStar();
+            }
+        });
     }
 
     public void updateStarToolbar(Star updatedBar){
