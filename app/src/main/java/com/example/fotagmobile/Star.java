@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -46,18 +47,7 @@ public class Star extends LinearLayout{
                 this.addView(star);
             }
         }
-        clearStar = new ImageButton(context);
-        clearStar.setBackgroundResource(R.drawable.close_icon);
-        clearStar.setMinimumWidth(10);
-        clearStar.setMinimumHeight(10);
-        clearStar.setMaxHeight(20);
-        clearStar.setMaxWidth(30);
-        clearStar.setAdjustViewBounds(true);
-        clearStar.setLayoutParams(new LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT));
-        clearStar.setPadding(15,10,0,0);
-        this.addView(clearStar);
+        addClearButton();
 
 
         //display the star
@@ -73,5 +63,64 @@ public class Star extends LinearLayout{
 //            StarList.get(i).setPadding(0, 10, 0, 50);
 //            this.addView(StarList.get(i));
 //        }
+    }
+
+    public void addClearButton(){
+        clearStar = new ImageButton(context);
+        clearStar.setBackgroundResource(R.drawable.close_icon);
+        clearStar.setMinimumWidth(10);
+        clearStar.setMinimumHeight(10);
+        clearStar.setMaxHeight(20);
+        clearStar.setMaxWidth(30);
+        clearStar.setAdjustViewBounds(true);
+        clearStar.setLayoutParams(new LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT));
+        clearStar.setPadding(15,10,0,0);
+        this.addView(clearStar);
+    }
+
+    public Star drawStar(){
+        StarList.clear();
+        for(int i=0;i<6;i++){
+            star = new ImageButton(context);
+            if(filled[i]){
+                Log.d("fotagmobile","filled is true");
+                star.setBackgroundResource(R.drawable.star_full);
+            }else{
+                Log.d("fotagmobile","filled is false");
+                star.setBackgroundResource(R.drawable.star_empty);
+            }
+            star.setMinimumWidth(70);
+            star.setMinimumHeight(50);
+            star.setMaxHeight(80);
+            star.setMaxWidth(50);
+            star.setAdjustViewBounds(true);
+            star.setLayoutParams(new LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT));
+            StarList.add(star);
+            if(i>0){ //dont want to print when i=0
+                Log.d("fotagmobile","not zero");
+                this.addView(star);
+            }
+        }
+        addClearButton();
+        return this;
+    }
+
+    public void setRating(int rate){
+        Log.d("fotagmobile", "setRating: " + rate);
+        if(filled[rate]){
+            //rating is changed from full to empty
+            for(int i = rate+1;i<filled.length;i++){
+                filled[i] = false;
+            }
+        }else{
+            for(int i=1;i<=rate;i++){
+                filled[i] = true;
+            }
+        }
+        //drawStar();
     }
 }

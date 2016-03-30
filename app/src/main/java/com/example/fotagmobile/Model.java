@@ -33,6 +33,12 @@ public class Model extends Observable{
         notifyObservers();
     }
 
+    public void updateStar(){
+        Log.d("fotagmobile","update star in model");
+        setChanged();
+        notifyObservers();
+    }
+
     // Observer methods
     @Override
     public void addObserver(Observer observer) {
