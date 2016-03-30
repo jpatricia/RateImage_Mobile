@@ -101,6 +101,7 @@ public class ToolbarView extends LinearLayout implements Observer {
             @Override
             public void onClick(View v) {
                 Log.d("fotagmobile", "load button clicked");
+
                 model.loadImage();
             }
         });

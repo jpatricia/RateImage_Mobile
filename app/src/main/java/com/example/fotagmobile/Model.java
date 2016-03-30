@@ -10,16 +10,23 @@ import java.util.Observer;
 
 public class Model extends Observable{
     public String type;
+    public boolean FirstLoad;
     public ArrayList<ImageModel> ImageList;
 
     Model(){
         type= "";
+        FirstLoad = true;
     }
 
     public void loadImage(){
-        Log.d("fotagmobile", "search Image");
-        if(type.equals("")) type ="load";
-        else type = ""; //to prevent loading the ten images again
+        Log.d("fotagmobile", "load Image type: "+type);
+        if(FirstLoad) {
+            type ="load";
+            FirstLoad = false;
+        }
+        else {
+            type = ""; //to prevent loading the ten images again
+        }
         setChanged();
         notifyObservers();
     }

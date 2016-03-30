@@ -224,9 +224,11 @@ public class ImageCollectionView extends LinearLayout implements Observer {
     public void update(Observable observable, Object data) {
         Log.d("fotagmobile", "update View");
         if(model.type.equals("load")){
+            Log.d("fotagmobile","load images update");
             loadImages();
         }else if(model.type.equals("clear")){
             this.removeAllViews();
+            model.FirstLoad = true;
         }
     }
 }
