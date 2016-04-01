@@ -1,6 +1,8 @@
 package com.example.fotagmobile;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +57,7 @@ public class ImageCollectionView extends LinearLayout implements Observer {
         ImageBox b9 = new ImageBox(context,R.drawable.img9);
         ImageBox b10 = new ImageBox(context,R.drawable.img10);
 
+
         box.add(b1);
         box.add(b2);
         box.add(b3);
@@ -69,7 +72,17 @@ public class ImageCollectionView extends LinearLayout implements Observer {
 
     public void loadImages(){
         Log.d("fotagmobile","box size: "+box.size());
-        if(box.size()==0) createBoxes();
+        if(box.size()==0) {
+            Log.d("fotagmobile","box size is 0");
+            createBoxes();
+        }
+
+        if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            Log.d("fotagmobile","PORTRAIT LOAD");
+        }else{
+            Log.d("fotagmobile", "LANDSCAPE LOAD");
+        }
+
         for(int i=0;i<box.size();i++){
             model.addImage(box.get(i).getRating(),box.get(i).getID());
             this.addView(box.get(i));
@@ -144,14 +157,16 @@ public class ImageCollectionView extends LinearLayout implements Observer {
             this.removeAllViews();
             model.FirstLoad = true;
         }else if(model.type.equals("filter")){
-            for(int i=0;i<box.size();i++){
-                if(box.get(i).getID() == model.ImageList.get(i).imgID) {
-                    Log.d("fotagmobile","box ID: "+box.get(i).getID()+" rating: " + box.get(i).getRating());
-                    model.ImageList.get(i).setRating(box.get(i).getRating());
-                    Log.d("fotagmobile", "image ID: " + model.ImageList.get(i).imgID + " rating: " + model.ImageList.get(i).getImgRating());
+            if(model.ImageList.size()!=0){
+                for(int i=0;i<box.size();i++){
+                    if(box.get(i).getID() == model.ImageList.get(i).imgID) {
+                        Log.d("fotagmobile","box ID: "+box.get(i).getID()+" rating: " + box.get(i).getRating());
+                        model.ImageList.get(i).setRating(box.get(i).getRating());
+                        Log.d("fotagmobile", "image ID: " + model.ImageList.get(i).imgID + " rating: " + model.ImageList.get(i).getImgRating());
+                    }
                 }
+                filterImages(model.filterRating);
             }
-            filterImages(model.filterRating);
         }
     }
 }

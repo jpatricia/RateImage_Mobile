@@ -1,5 +1,6 @@
 package com.example.fotagmobile;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +22,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            Log.d("fotagmobile","PORTRAIT");
+        }else{
+            Log.d("fotagmobile","LANDSCAPE");
+        }
         Log.d("FotagMobile", "onCreate");
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -36,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
         // can only get widgets by id in onPostCreate for activity xml res
 
         ToolbarView toolbarView = new ToolbarView(toolbar, this,model);
-
         ImageCollectionView content = new ImageCollectionView(this,model);
         ViewGroup v = (ViewGroup) findViewById(R.id.mainactivity_1);
 //        ScrollView v = (ScrollView) findViewById(R.id.view);
+
 
         v.addView(toolbarView);
         v.addView(content);
