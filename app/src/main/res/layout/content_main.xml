@@ -17,13 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--<include layout="@layout/mainactivity" />-->
-        <LinearLayout
-            android:id="@+id/mainactivity_1"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-
-            android:orientation="vertical" />
+        <include layout="@layout/mainactivity" />
 
     </ScrollView>
 

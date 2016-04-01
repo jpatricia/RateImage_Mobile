@@ -63,25 +63,9 @@ public class ImageBox extends LinearLayout implements Observer {
         iv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCancelable(true);
-                dialog.setContentView(R.layout.content_main2);
-                ImageView ivPreview = new ImageView(context);
-                ivPreview.setBackgroundResource(id);
-                ivPreview.setMaxHeight(500);
-                ivPreview.setMaxWidth(400);
-                dialog.addContentView(ivPreview, new LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        LayoutParams.WRAP_CONTENT));
-
-                ivPreview.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                Intent i = new Intent(context, FullImageActivity.class);
+                i.putExtra("id",id);
+                context.startActivity(i);
             }
         });
 

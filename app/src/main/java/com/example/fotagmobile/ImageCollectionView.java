@@ -40,6 +40,7 @@ public class ImageCollectionView extends LinearLayout implements Observer {
 //        loadList.add(R.drawable.img9);
 //        loadList.add(R.drawable.img10);
         model.addObserver(this);
+
         this.setOrientation(LinearLayout.VERTICAL);
 
     }

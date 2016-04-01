@@ -14,16 +14,12 @@
 
     <ScrollView
         android:id="@+id/view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <!-- if the wrap content is changed, the
+            view will not show up in landscape mode-->
 
-       <!-- <include layout="@layout/mainactivity" />-->
-        <GridLayout
-            android:id="@+id/mainactivity_1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
-            android:orientation="horizontal" />
+        <include layout="@layout/mainactivity" />
 
     </ScrollView>
 
