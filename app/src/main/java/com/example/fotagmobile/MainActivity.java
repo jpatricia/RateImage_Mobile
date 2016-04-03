@@ -47,16 +47,21 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MVC", "onPostCreate");
         // can only get widgets by id in onPostCreate for activity xml res
 
-        ToolbarView toolbarView = new ToolbarView(toolbar, this,model);
-        ImageCollectionView content = new ImageCollectionView(this,model,grid,imgAdapter);
-        ViewGroup v = (ViewGroup) findViewById(R.id.mainactivity_1);
+
 //        ScrollView v = (ScrollView) findViewById(R.id.view);
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             Log.d("fotagmobile", "LANDSCAPE POSTCREATE");
-            imgAdapter = new ImageAdapter(this,content.getBox());
+            ToolbarView toolbarView = new ToolbarView(toolbar, this,model);
+            imgAdapter = new ImageAdapter(this);
+            ImageCollectionView content = new ImageCollectionView(this,model,grid,imgAdapter);
+            ViewGroup v = (ViewGroup) findViewById(R.id.mainactivity_1);
+//            imgAdapter = new ImageAdapter(this,content.getBox());
             grid.setAdapter(imgAdapter);
         }else{
+            ToolbarView toolbarView = new ToolbarView(toolbar, this,model);
+            ImageCollectionView content = new ImageCollectionView(this,model,grid,imgAdapter);
+            ViewGroup v = (ViewGroup) findViewById(R.id.mainactivity_1);
             v.addView(toolbarView);
             v.addView(content);
         }

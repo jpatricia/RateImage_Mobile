@@ -13,6 +13,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -23,9 +24,9 @@ public class ImageAdapter extends BaseAdapter {
     public boolean added;
     public int counter;
 
-    public ImageAdapter(Context c, ArrayList<ImageBox> list1){
+    public ImageAdapter(Context c){
         context = c;
-        listImage = new ArrayList<>(list1);
+        listImage = new ArrayList<ImageBox>();
         checkID = new ArrayList<Integer>();
         added = false;
         counter = 0;
@@ -34,6 +35,18 @@ public class ImageAdapter extends BaseAdapter {
     public boolean check(int id){
         added = checkID.contains(id);
         return added;
+    }
+
+    public void updateList(ArrayList<ImageBox> l){
+        listImage.addAll(l);
+        notifyDataSetChanged();
+    }
+
+    public void clearAdapter(){
+        counter = 0;
+        checkID.clear();
+        listImage.clear();
+        notifyDataSetChanged();
     }
 
     @Override
@@ -56,12 +69,12 @@ public class ImageAdapter extends BaseAdapter {
         ImageBox imgBox;
         if(convertView == null) {
             Log.d("fotagmobile","IF");
-            imgBox = new ImageBox(context, listImage.get(position).getID(),listImage.get(position).getBitmap());
+            imgBox = new ImageBox(context, listImage.get(position).getRating(), listImage.get(position).getID(),listImage.get(position).getBitmap());
             checkID.add(listImage.get(position).getID());
             counter++;
         }else if(!check(listImage.get(position).getID()) && counter<listImage.size()){
             Log.d("fotagmobile","ELSE IF");
-            imgBox = new ImageBox(context, listImage.get(position).getID(), listImage.get(position).getBitmap());
+            imgBox = new ImageBox(context, listImage.get(position).getRating(), listImage.get(position).getID(), listImage.get(position).getBitmap());
             checkID.add(listImage.get(position).getID());
             counter++;
         }

@@ -44,7 +44,6 @@ public class ImageCollectionView extends LinearLayout implements Observer {
 
         box = new ArrayList<ImageBox>();
         box2 = new ArrayList<ImageBox>(box);
-        //createBoxes();
 
         model.addObserver(this);
 
@@ -54,16 +53,16 @@ public class ImageCollectionView extends LinearLayout implements Observer {
 
     public void createBoxes(){
 
-        ImageBox b1 = new ImageBox(context,R.drawable.img1,null);
-        ImageBox b2 = new ImageBox(context,R.drawable.img2,null);
-        ImageBox b3 = new ImageBox(context,R.drawable.img3,null);
-        ImageBox b4 = new ImageBox(context,R.drawable.img4,null);
-        ImageBox b5 = new ImageBox(context,R.drawable.img5,null);
-        ImageBox b6 = new ImageBox(context,R.drawable.img6,null);
-        ImageBox b7 = new ImageBox(context,R.drawable.img7,null);
-        ImageBox b8 = new ImageBox(context,R.drawable.img8,null);
-        ImageBox b9 = new ImageBox(context,R.drawable.img9,null);
-        ImageBox b10 = new ImageBox(context,R.drawable.img10,null);
+        ImageBox b1 = new ImageBox(context,0,R.drawable.img1,null);
+        ImageBox b2 = new ImageBox(context,0,R.drawable.img2,null);
+        ImageBox b3 = new ImageBox(context,0,R.drawable.img3,null);
+        ImageBox b4 = new ImageBox(context,0,R.drawable.img4,null);
+        ImageBox b5 = new ImageBox(context,0,R.drawable.img5,null);
+        ImageBox b6 = new ImageBox(context,0,R.drawable.img6,null);
+        ImageBox b7 = new ImageBox(context,0,R.drawable.img7,null);
+        ImageBox b8 = new ImageBox(context,0,R.drawable.img8,null);
+        ImageBox b9 = new ImageBox(context,0,R.drawable.img9,null);
+        ImageBox b10 = new ImageBox(context,0,R.drawable.img10,null);
 
         box.add(b1);
         box.add(b2);
@@ -78,12 +77,13 @@ public class ImageCollectionView extends LinearLayout implements Observer {
     }
 
     public void loadImages(){
+        Log.d("fotagmobile","loadImages portrait function");
         this.removeAllViews();
         if(loadType.equals("loadButton")){
             Log.d("fotagmobile", "loadbButton image");
             createBoxes();
-            Log.d("fotagmobile","ImageList.size: "+model.ImageList.size());
-            Log.d("fotagmobile","box size: "+box.size());
+//            Log.d("fotagmobile","ImageList.size: "+model.ImageList.size());
+//            Log.d("fotagmobile","box size: "+box.size());
             int start =0;
             if(model.ImageList.size()!=0){
                 start= model.ImageList.size();
@@ -94,15 +94,14 @@ public class ImageCollectionView extends LinearLayout implements Observer {
             for(int i=start;i<box.size();i++){
                 model.addImage(box.get(i).getRating(),box.get(i).getID(),box.get(i).getBitmap());
                 this.addView(box.get(i));
-
             }
 
             loadType ="";
         }else if(loadType.equals("loadURI")){
             Log.d("fotagmobile", "load URI image");
-            Log.d("fotagmobile","ImageList.size: "+model.ImageList.size());
-            Log.d("fotagmobile", "box size: " + box.size());
-            ImageBox ib = new ImageBox(context,bmpID,bmp);
+//            Log.d("fotagmobile","ImageList.size: "+model.ImageList.size());
+//            Log.d("fotagmobile", "box size: " + box.size());
+            ImageBox ib = new ImageBox(context,0,bmpID,bmp);
             box.add(ib);
             bmpID++;
             int start=0;
@@ -122,30 +121,65 @@ public class ImageCollectionView extends LinearLayout implements Observer {
 
     }
 
-    public ArrayList<ImageBox> getBox(){
-        return box;
-    }
+//    public ArrayList<ImageBox> getBox(){
+//        return box;
+//    }
 
     public void loadGrid(){
         Log.d("fotagmobile","loadGrid function");
-        if(box.size()==0) {
-            Log.d("fotagmobile","box size is 0");
+        if(loadType.equals("loadButton")){
+            Log.d("fotagmobile","loadButton image");
             createBoxes();
-        }
-        Log.d("fotagmobile", "box size now: " + box.size());
-        for(int i=0;i<box.size();i++) {
-            model.addImage(box.get(i).getRating(), box.get(i).getID(),box.get(i).getBitmap());
+            int start =0;
+            if(model.ImageList.size()!=0){
+                start = model.ImageList.size();
+            }
+            for(int i=start;i<box.size();i++) {
+                model.addImage(box.get(i).getRating(), box.get(i).getID(),box.get(i).getBitmap());
+            }
+            Log.d("fotagmobile","ImageList.size: "+model.ImageList.size());
+            Log.d("fotagmobile", "box size: " + box.size());
+            loadType="";
+        }else if(loadType.equals("loadURI")){
+            Log.d("fotagmobile","loadURI image");
+
+            ImageBox ib = new ImageBox(context,0,bmpID,bmp);
+            box.add(ib);
+            bmpID++;
+
+            int start=0;
+            if(model.ImageList.size()!=0){
+                start = model.ImageList.size();
+            }
+            for(int i=start;i<box.size();i++) {
+                model.addImage(box.get(i).getRating(), box.get(i).getID(),box.get(i).getBitmap());
+            }
+            Log.d("fotagmobile","ImageList.size: "+model.ImageList.size());
+            Log.d("fotagmobile", "box size: " + box.size());
+            loadType="";
         }
 
-        ImageAdapter a = new ImageAdapter(context,box);
-        gr.setAdapter(null);
-       // adapter.listImage.clear();
-       // adapter.checkID.clear();
-       // adapter.counter=0;
-        //adapter.notifyDataSetInvalidated();
-        adapter = a;
-        //adapter.notifyDataSetChanged();
+        //clear everything before redraw
+//        gr.setAdapter(null);
+//        adapter.listImage.clear();
+//        adapter.checkID.clear();
+//        adapter.counter=0;
+
         gr.setAdapter(adapter);
+        if(adapter==null){
+            Log.d("fotagmobile","adapter is null");
+            //adapter = new ImageAdapter(context,box);
+            adapter.updateList(box);
+        }else{
+            Log.d("fotagmobile","adapter is not null");
+            adapter.updateList(box);
+        }
+        //adapter.updateList(box);
+        //redraw ORIGINAL
+//        ImageAdapter a = new ImageAdapter(context,box);
+//        adapter = a;
+//        adapter.notifyDataSetChanged();
+//        gr.setAdapter(adapter);
     }
 
     public void filterImages(int ratingFilter){
@@ -172,9 +206,7 @@ public class ImageCollectionView extends LinearLayout implements Observer {
             model.SecondList.add(list.get(i));
         }
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            adapter.counter = 0;
-            adapter.checkID.clear();
-            adapter.listImage.clear();
+            adapter.clearAdapter();
             gr.setAdapter(null);
         }
 
@@ -198,21 +230,22 @@ public class ImageCollectionView extends LinearLayout implements Observer {
                 }
             }
             else{
-                Log.d("fotagmobile","landscape redraw");
+                Log.d("fotagmobile", "landscape redraw");
                 box2.clear();
                 for(int i=0;i<model.SecondList.size();i++) {
-                    ImageBox b = new ImageBox(context, model.SecondList.get(i).imgID, null);
-                    b.addRating(model.SecondList.get(i).getImgRating());
+                    ImageBox b = new ImageBox(context,model.SecondList.get(i).getImgRating(), model.SecondList.get(i).imgID, model.SecondList.get(i).getBitmap());
                     box2.add(b);
                     Log.d("fotagmobile", "id: " + b.getID());
+                    Log.d("fotagmobile","list rating: "+model.SecondList.get(i).getImgRating());
+                    Log.d("fotagmobile", "b rating: " + b.getRating());
                 }
 
-                ImageAdapter a = new ImageAdapter(context,box2);
+                adapter.updateList(box2);
+              //  ImageAdapter a = new ImageAdapter(context,box2);
+             //   adapter = a;
 
-
-                adapter = a;
-                adapter.notifyDataSetChanged();
-                gr.setAdapter(adapter);
+//                gr.setAdapter(adapter);
+//                adapter.notifyDataSetChanged();
             }
         }
     }
@@ -238,15 +271,12 @@ public class ImageCollectionView extends LinearLayout implements Observer {
                     if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
                         Log.d("fotagmobile","searchlink to loadgrid");
                         loadGrid();
-                    }else{
-                        Log.d("fotagmobile","searchlink to loadImage");
+                    }else {
+                        Log.d("fotagmobile", "searchlink to loadImage");
                         loadImages();
                     }
-                    // imageView.setImageBitmap(bmp);
                 }
-
             }
-
         }.execute();
     }
     public void update(Observable observable, Object data) {
@@ -261,7 +291,7 @@ public class ImageCollectionView extends LinearLayout implements Observer {
                 Log.d("fotagmobile", "PORTRAIT LOADIMAGES");
                 loadImages();
             }
-
+            model.type="";
            // loadImages();
         }else if(model.type.equals("clear")){
             box.clear();
@@ -270,25 +300,38 @@ public class ImageCollectionView extends LinearLayout implements Observer {
             model.SecondList.clear();
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
                 Log.d("fotagmobile", "LANDSCAPE CLEAR");
-                adapter.counter=0;
-                adapter.listImage.clear();
-                adapter.checkID.clear();
+                adapter.clearAdapter();
                 gr.setAdapter(null);
                 model.FirstLoad = true;
+                bmpID = 0;
             }else{
                 Log.d("fotagmobile", "PORTRAIT CLEAR");
                 this.removeAllViews();
                 model.FirstLoad = true;
                 bmpID = 0;
             }
-
+            model.type="";
         }else if(model.type.equals("filter")){
+//            for(int i=0;i<box.size();i++) {
+//                Log.d("fotagmobile", "Box RatingChange:" + box.get(i).RatingChange);
+//                if (box.get(i).RatingChange) {
+//                    Log.d("fotagmobile", "RATING CHANGED");
+//                   // adapter.notifyDataSetChanged();
+//                }
+//            }
+            for(int i=0;i<model.ImageList.size();i++){
+                Log.d("fotagmobile","rating: "+model.ImageList.get(i).getImgRating());
+            }
+            Log.d("fotagmobile","--------------BOX");
+            for(int i=0;i<box.size();i++){
+                Log.d("fotagmobile", "rating: "+ box.get(i).getRating());
+            }
             if(model.ImageList.size()!=0){
                 Log.d("fotagmobile","box size in filter: "+box.size());
                 Log.d("fotagmobile", "ImageList size in filter: " + model.ImageList.size());
                 for(int i=0;i<box.size();i++){
-                    Log.d("fotagmobile","imagelist id: "+model.ImageList.get(i).imgID);
-                    Log.d("fotagmobile","box getID: "+box.get(i).getID());
+//                    Log.d("fotagmobile","imagelist id: "+model.ImageList.get(i).imgID);
+//                    Log.d("fotagmobile","box getID: "+box.get(i).getID());
                     if(box.get(i).getID() == model.ImageList.get(i).imgID) {
                         Log.d("fotagmobile", "box ID: " + box.get(i).getID() + " rating: "
                                 + box.get(i).getRating());
@@ -297,9 +340,21 @@ public class ImageCollectionView extends LinearLayout implements Observer {
                 }
                 filterImages(model.filterRating);
             }
+            model.type="";
         }else if(model.type.equals("search")){
             loadType = "loadURI";
             searchLink(model.link);
+            model.type="";
         }
+//        else{
+//            for(int i=0;i<box.size();i++){
+//                if(box.get(i).RatingChange){
+//                    //there's an update on the star
+//                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//                        Log.d("fotagmobile","STAR CHANGE ON ID: "+box.get(i).getID());
+//                    }
+//                }
+//            }
+//        }
     }
 }

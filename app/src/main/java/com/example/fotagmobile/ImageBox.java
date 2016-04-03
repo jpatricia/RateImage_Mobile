@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -29,16 +30,21 @@ public class ImageBox extends LinearLayout implements Observer {
     private Star rating;
     private int id;
     private Bitmap bm;
+    private int ImageBoxRating;
+    public boolean RatingChange;
 
-    public ImageBox(final Context context_,int id_,Bitmap bm_){
+    public ImageBox(final Context context_, int imgBoxRating, int id_, Bitmap bm_){
         super(context_);
         context = context_;
         //model = model_;
         rating = new Star(context);
         bm = bm_;
         id=id_;
+        ImageBoxRating = imgBoxRating;
+        RatingChange = false;
+
         if(bm==null){
-            Log.d("fotagmobile","ImageBox image id");
+           // Log.d("fotagmobile","ImageBox image id");
             loadImageWithID(id);
         }else{
             Log.d("fotagmobile","ImageBox bitmap");
@@ -46,12 +52,11 @@ public class ImageBox extends LinearLayout implements Observer {
         }
 
         im.addObserver(this);
-
     }
 
     public void loadImageWithID(int id_){
         id = id_;
-        im = new ImageModel(0,id,bm);
+        im = new ImageModel(ImageBoxRating,id,bm);
 
         this.setOrientation(VERTICAL);
         ImageView iv = new ImageView(context);
@@ -94,7 +99,7 @@ public class ImageBox extends LinearLayout implements Observer {
     public void loadImageWithBitmap(final Bitmap bitmap){
         Log.d("fotagmobile","loading bitmap");
         Log.d("fotagmobile","id: "+id);
-        im = new ImageModel(0,id,bitmap);
+        im = new ImageModel(ImageBoxRating,id,bitmap);
         this.setOrientation(VERTICAL);
         ImageView iv = new ImageView(context);
 
@@ -178,6 +183,7 @@ public class ImageBox extends LinearLayout implements Observer {
     }
 
     public int getRating(){
+        //Log.d("fotagmobile","return imgRating from img box: "+im.getImgRating());
         return im.getImgRating();
     }
 
@@ -241,7 +247,7 @@ public class ImageBox extends LinearLayout implements Observer {
         rating.clearStar.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("fotagmobile","image clearRating clicked");
+                Log.d("fotagmobile", "image clearRating clicked");
                 rating.removeAllViews();
                 im.setRating(0);
                 rating.clearRating();
@@ -268,7 +274,9 @@ public class ImageBox extends LinearLayout implements Observer {
     public void update(Observable arg0, Object arg1){
         Log.d("fotagmobile","update ImageBox view");
         if(im.updateImgStar){
+            RatingChange = true;
             Log.d("fotagmobile","update image star to:"+im.getImgRating());
+            Log.d("fotagmobile", "RatingChange:" + RatingChange);
             im.updateImgStar = false;
             this.removeView(rating);
             updateStarImage();

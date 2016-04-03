@@ -12,14 +12,12 @@ public class ImageModel extends Observable {
     private Bitmap bm;
 
     ImageModel(int prevRating, int imageID, Bitmap bm_){
-        if(prevRating == 0){
-            imgRating=0;
-        }else{
-            imgRating = prevRating;
-        }
+
+        imgRating = prevRating;
         bm = bm_;
         imgID = imageID;
-
+//        Log.d("fotagmobile","IMAGE MODEL CONSTRUCTOR");
+//        Log.d("fotagmobile","imgRating: "+imgRating);
     }
 
     public void setRating(int r){
