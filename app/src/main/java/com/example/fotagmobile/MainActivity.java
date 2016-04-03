@@ -12,25 +12,30 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
 public class MainActivity extends AppCompatActivity {
     Model model;
     Toolbar toolbar;
+    GridView grid;
+    ImageAdapter imgAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("FotagMobile", "onCreate");
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             Log.d("fotagmobile","PORTRAIT");
         }else{
             Log.d("fotagmobile","LANDSCAPE");
         }
-        Log.d("FotagMobile", "onCreate");
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        grid = (GridView)findViewById(R.id.grid_view);
 
         model = new Model();
     }
@@ -43,13 +48,20 @@ public class MainActivity extends AppCompatActivity {
         // can only get widgets by id in onPostCreate for activity xml res
 
         ToolbarView toolbarView = new ToolbarView(toolbar, this,model);
-        ImageCollectionView content = new ImageCollectionView(this,model);
+        ImageCollectionView content = new ImageCollectionView(this,model,grid,imgAdapter);
         ViewGroup v = (ViewGroup) findViewById(R.id.mainactivity_1);
 //        ScrollView v = (ScrollView) findViewById(R.id.view);
 
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            Log.d("fotagmobile", "LANDSCAPE POSTCREATE");
+            imgAdapter = new ImageAdapter(this,content.getBox());
+            grid.setAdapter(imgAdapter);
+        }else{
+            v.addView(toolbarView);
+            v.addView(content);
+        }
 
-        v.addView(toolbarView);
-        v.addView(content);
+
 
         // initialize views
         model.setChanged();

@@ -1,9 +1,13 @@
 package com.example.fotagmobile;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.support.v7.widget.Toolbar;
@@ -37,66 +41,6 @@ public class ToolbarView extends LinearLayout implements Observer {
 
         addListenerRating();
 
-//        s.StarList.get(1).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("fotagmobile", "toolbar star 1 clicked");
-//                ratingToolbar.removeAllViews();
-//                toolbar.removeView(ratingToolbar);
-//                s.setRating(1);
-//                model.type = "filter";
-//                model.updateStar();
-//            }
-//        });
-//
-//        s.StarList.get(2).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("fotagmobile","toolbar star 2 clicked");
-//                ratingToolbar.removeAllViews();
-//                toolbar.removeView(ratingToolbar);
-//                s.setRating(2);
-//                model.type = "filter";
-//                model.updateStar();
-//            }
-//        });
-//
-//        s.StarList.get(3).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("fotagmobile","toolbar star 3 clicked");
-//                ratingToolbar.removeAllViews();
-//                toolbar.removeView(ratingToolbar);
-//                s.setRating(3);
-//                model.type = "filter";
-//                model.updateStar();
-//            }
-//        });
-//
-//        s.StarList.get(4).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("fotagmobile","toolbar star 4 clicked");
-//                ratingToolbar.removeAllViews();
-//                toolbar.removeView(ratingToolbar);
-//                s.setRating(4);
-//                model.type = "filter";
-//                model.updateStar();
-//            }
-//        });
-//
-//        s.StarList.get(5).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("fotagmobile","toolbar star 5 clicked");
-//                ratingToolbar.removeAllViews();
-//                toolbar.removeView(ratingToolbar);
-//                s.setRating(5);
-//                model.type = "filter";
-//                model.updateStar();
-//            }
-//        });
-
         load.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +54,14 @@ public class ToolbarView extends LinearLayout implements Observer {
             public void onClick(View v) {
                 Log.d("fotagmobile", "clear button clicked");
                 model.clearImage();
+                ratingToolbar.removeAllViews();
+                toolbar.removeView(ratingToolbar);
+                ratingToolbar.setRatingStar(0);
+                ratingToolbar.clearRating();
+                updateStarToolbar(ratingToolbar.drawStar());
+                model.updateStar();
+
+
             }
         });
 
@@ -117,10 +69,39 @@ public class ToolbarView extends LinearLayout implements Observer {
             @Override
             public void onClick(View v) {
                 Log.d("fotagmobile", "search button clicked");
-                model.searchImage();
+                createDialogPrompt();
             }
         });
 
+    }
+
+    public void createDialogPrompt(){
+        LayoutInflater li = LayoutInflater.from(context);
+        View promptsView = li.inflate(R.layout.prompts, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setView(promptsView);
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+        alertDialogBuilder
+                .setCancelable(true)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String result = userInput.getText().toString();
+                                Log.d("fotagmobile","result: "+result);
+                                model.searchImage(result);
+                                //http://www.wired.com/wp-content/uploads/2015/09/google-logo.jpg
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public void addListenerRating(){

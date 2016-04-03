@@ -1,8 +1,10 @@
 package com.example.fotagmobile;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
 import java.lang.reflect.Array;
@@ -17,6 +19,8 @@ public class Model extends Observable{
     public ArrayList<ImageModel> SecondList;
     public ArrayList<Integer> listRating;
     public int filterRating;
+    public String link;
+    public boolean loadURL;
 
     Model(){
         type= "";
@@ -26,8 +30,8 @@ public class Model extends Observable{
         SecondList = new ArrayList<ImageModel>();
     }
 
-    public void addImage(int r, int id){
-        ImageModel m = new ImageModel(r,id);
+    public void addImage(int r, int id, Bitmap bm){
+        ImageModel m = new ImageModel(r,id,bm);
         ImageList.add(m);
         SecondList.add(m);
     }
@@ -45,8 +49,12 @@ public class Model extends Observable{
         notifyObservers();
     }
 
-    public void searchImage(){
+    public void searchImage(String result){
         type="search";
+        loadURL = true;
+        link = result;
+        setChanged();
+        notifyObservers();
     }
 
     public void clearImage(){

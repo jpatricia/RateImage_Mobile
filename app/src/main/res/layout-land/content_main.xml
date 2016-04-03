@@ -12,15 +12,11 @@
     tools:context="com.example.fotagmobile.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <ScrollView
-        android:id="@+id/view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+
         <!-- if the wrap content is changed, the
             view will not show up in landscape mode-->
 
         <include layout="@layout/mainactivity" />
 
-    </ScrollView>
 
 </RelativeLayout>

@@ -20,7 +20,7 @@ public class Star extends LinearLayout{
     public ImageButton star;
     public ImageButton clearStar;
 
-    Star(Context context_){
+    Star(Context context_) {
         super(context_);
         context = context_;
         this.setOrientation(HORIZONTAL);
@@ -29,7 +29,6 @@ public class Star extends LinearLayout{
         filled = new boolean[6];
 
         for (int i = 0; i < 6; i++) {
-            Log.d("fotagmobile", "init star");
             filled[i] = false; //empty star
 
             star = new ImageButton(context);
@@ -43,31 +42,16 @@ public class Star extends LinearLayout{
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     LayoutParams.WRAP_CONTENT));
             StarList.add(star);
-            if(i>0){ //dont want to print when i=0
+            if (i > 0) { //dont want to print when i=0
                 this.addView(star);
             }
         }
         addClearButton();
-
-
-        //display the star
-//        for(int i=0;i<6;i++){
-//            StarList.get(i).setMaxHeight(50);
-//            StarList.get(i).setMinimumHeight(30);
-//            StarList.get(i).setMaxWidth(50);
-//            StarList.get(i).setMinimumWidth(30);
-//            StarList.get(i).setAdjustViewBounds(true);
-//            StarList.get(i).setLayoutParams(new LayoutParams(
-//                    ViewGroup.LayoutParams.MATCH_PARENT,
-//                    LayoutParams.MATCH_PARENT));
-//            StarList.get(i).setPadding(0, 10, 0, 50);
-//            this.addView(StarList.get(i));
-//        }
     }
 
     public void addClearButton(){
         clearStar = new ImageButton(context);
-        clearStar.setBackgroundResource(R.drawable.close_icon);
+        clearStar.setBackgroundResource(android.R.drawable.ic_delete);
         clearStar.setMinimumWidth(30);
         clearStar.setMinimumHeight(30);
         clearStar.setMaxHeight(40);
@@ -85,10 +69,8 @@ public class Star extends LinearLayout{
         for(int i=0;i<6;i++){
             star = new ImageButton(context);
             if(filled[i]){
-                Log.d("fotagmobile","filled is true");
                 star.setBackgroundResource(R.drawable.star_full);
             }else{
-                Log.d("fotagmobile","filled is false");
                 star.setBackgroundResource(R.drawable.star_empty);
             }
             star.setMinimumWidth(70);
@@ -101,7 +83,6 @@ public class Star extends LinearLayout{
                     LayoutParams.WRAP_CONTENT));
             StarList.add(star);
             if(i>0){ //dont want to print when i=0
-                Log.d("fotagmobile","not zero");
                 this.addView(star);
             }
         }

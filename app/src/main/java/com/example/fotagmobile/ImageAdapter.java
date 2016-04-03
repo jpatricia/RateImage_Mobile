@@ -1,41 +1,49 @@
 package com.example.fotagmobile;
 
+import android.app.Activity;
 import android.content.Context;
+import android.media.Image;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
-/**
- * Created by Janice on 4/1/2016.
- */
+
 public class ImageAdapter extends BaseAdapter {
     private Context context;
-  //  private ArrayList<ImageModel> listImage;
+    public ArrayList<ImageBox> listImage;
+    public ArrayList<Integer> checkID;
+    public boolean added;
+    public int counter;
 
-    public ImageAdapter(Context c){
+    public ImageAdapter(Context c, ArrayList<ImageBox> list1){
         context = c;
-//        listImage = new ArrayList<>();
-//        if(list1.size()!=0){
-//            for(int i=0;i<list1.size();i++){
-//                listImage.add(list1.get(i));
-//            }
-//        }
+        listImage = new ArrayList<>(list1);
+        checkID = new ArrayList<Integer>();
+        added = false;
+        counter = 0;
+    }
 
+    public boolean check(int id){
+        added = checkID.contains(id);
+        return added;
     }
 
     @Override
     public int getCount() {
-        return 0;
-     //   return mThumbIds.length;
+        return listImage.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return position; //id of the image;
+        return listImage.get(position).getID(); //id of the image;
     }
 
     @Override
@@ -45,10 +53,37 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView = new ImageView(context);
-        imageView.setImageResource(position);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setLayoutParams(new GridView.LayoutParams(70, 70));
-        return imageView;
+        ImageBox imgBox;
+        if(convertView == null) {
+            Log.d("fotagmobile","IF");
+            imgBox = new ImageBox(context, listImage.get(position).getID(),listImage.get(position).getBitmap());
+            checkID.add(listImage.get(position).getID());
+            counter++;
+        }else if(!check(listImage.get(position).getID()) && counter<listImage.size()){
+            Log.d("fotagmobile","ELSE IF");
+            imgBox = new ImageBox(context, listImage.get(position).getID(), listImage.get(position).getBitmap());
+            checkID.add(listImage.get(position).getID());
+            counter++;
+        }
+        else{
+            imgBox= (ImageBox) convertView;
+            Log.d("fotagmobile","ELSE2");
+        }
+        return imgBox;
+
+        //only images not imagebox down here
+//        ImageView imageView = new ImageView(context);
+//        imageView.setImageResource(listImage.get(position).getID());
+//        //imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//        imageView.setMinimumWidth(200);
+//        imageView.setMinimumHeight(200);
+//        imageView.setMaxWidth(600);
+//        imageView.setMaxHeight(400);
+//
+//        imageView.setAdjustViewBounds(true);
+//        imageView.setLayoutParams(new GridView.LayoutParams(
+//                ViewGroup.LayoutParams.WRAP_CONTENT,
+//                GridView.LayoutParams.MATCH_PARENT));
+//        return imageView;
     }
 }
